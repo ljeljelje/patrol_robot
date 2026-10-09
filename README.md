@@ -386,12 +386,7 @@ https://github.com/user-attachments/assets/5d5cf541-2a6d-4897-97bb-41b8ccb4e4b5
 [meta_gateway.py](gateway_pk/gateway_pk/meta_gateway.py)는 웹 JSON 메시지를 ROS 명령으로 변환하고 로봇 상태를 클라이언트에 전달합니다.
 웹/Meta 글래스 클라이언트에서 전달되는 제어 명령은 WebSocket JSON 메시지로 수신한 뒤 ROS 2 토픽으로 변환됩니다.
 
-주요 제어 기능:
-- 수동 주행 및 정지
-- Auto / Manual 모드 변경
-- 웨이포인트 선택
-- 전조등 및 경고 기능
-- AXIS PTZ 팬·틸트·줌 제어
+주요 제어 기능: 수동 주행 및 정지, Auto / Manual 모드 변경, 웨이포인트 선택, 전조등 및 경고 기능, AXIS PTZ 팬·틸트·줌 제어
 
 - `cmd_vel`: 선속도·각속도 입력 검증과 제한, `/cmd_vel` 발행.
 - `robot_mode`: 현재 주행 명령 정지 후 Auto/Manual 전환 메시지 발행.
