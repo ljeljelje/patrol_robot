@@ -45,6 +45,7 @@ https://github.com/user-attachments/assets/6ae050c7-dea2-40f1-a3cb-28d4f5f7e00d
 | 영상 확인 | OpenCV 뷰어와 브라우저용 영상·제어 브리지 | `axis_image_processor`, `axis_web_bridge` |
 | 주변 장치 | CAN 배터리 상태 수신, GPIO 조명, 경고음 재생 | `can_communication`, `bringup` |
 | 대체 계획기 | TEB 최적화 및 Costmap의 기하 장애물 변환 구현 | `teb_local_planner`, `costmap_converter` |
+| 관제 클라이언트 | 스마트폰·Meta 글래스용 웹 UI, 조이스틱·PTZ·웨이포인트·상태 확인 | Web client / Meta Glass |
 
 ### 개발 환경과 기술
 
@@ -383,6 +384,14 @@ https://github.com/user-attachments/assets/5d5cf541-2a6d-4897-97bb-41b8ccb4e4b5
 #### meta_gateway.py
 
 [meta_gateway.py](gateway_pk/gateway_pk/meta_gateway.py)는 웹 JSON 메시지를 ROS 명령으로 변환하고 로봇 상태를 클라이언트에 전달합니다.
+웹/Meta 글래스 클라이언트에서 전달되는 제어 명령은 WebSocket JSON 메시지로 수신한 뒤 ROS 2 토픽으로 변환됩니다.
+
+주요 제어 기능:
+- 수동 주행 및 정지
+- Auto / Manual 모드 변경
+- 웨이포인트 선택
+- 전조등 및 경고 기능
+- AXIS PTZ 팬·틸트·줌 제어
 
 - `cmd_vel`: 선속도·각속도 입력 검증과 제한, `/cmd_vel` 발행.
 - `robot_mode`: 현재 주행 명령 정지 후 Auto/Manual 전환 메시지 발행.
@@ -732,8 +741,18 @@ ros2 topic echo /robot_nav/goal_success
 | 항목 | 작성 내용 |
 |---|---|
 | 팀 규모 | 6인 |
-| 담당 모듈 | mapping, localization, Navigation, 하드웨어 추가 제작, 배선, 시스템 통합 |
-| 적용 및 검증 | Global Path 기반 자율주행 적용 및 실제 주행 검증 |
+| 담당 영역 | 관제 인터페이스, Meta Glass 연동, WebSocket–ROS2 Gateway 통합, AXIS PTZ 제어, 시스템 통합 |
+| 적용 및 검증 | 스마트폰·Meta 글래스 기반 원격 제어, 웨이포인트 이동, 조이스틱 주행, PTZ 제어 및 실제 시연 검증 |
+
+### 관제 인터페이스 및 Meta Glass 연동
+
+- CoastalPatrol 로봇 관제 웹앱의 화면 및 제어 UX 설계
+- 스마트폰과 Meta 글래스가 동일한 Gateway를 통해 로봇을 제어하도록 구성
+- Meta 글래스의 핀치·방향 입력을 조이스틱 및 AXIS PTZ 제어와 연결
+- 조이스틱/PTZ 모드 전환과 상태 표시 UI 개선
+- 웨이포인트 선택 및 현재/목표 위치 표시 기능 구성
+- Vercel 기반 웹앱 배포 및 동일 URL 유지
+- 스마트폰 화면 미러링을 이용한 시연 환경 구성
 
 
 ### 관련 문서
